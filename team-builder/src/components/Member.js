@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import { Link, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Member = (props) =>{

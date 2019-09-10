@@ -13,6 +13,7 @@ function App() {
   const [user, setUser] = useState({id:'' ,email: "", name: "", role: ""})
   const [member, setMember] = useState([]);
   const [single, setSingle] = useState([]);
+  const [memberToEdit, setMemberToEdit] = useState({id:'' ,email: "", name: "", role: ""})
 
   useEffect(()=>{
     axios.get('http://localhost:5000/api/team')
@@ -71,13 +72,18 @@ function App() {
 
       <Route 
         path='/team/:id'
-        exact
         render = { (props) => {
           return(
             <SingleMember 
               {...props}
               single = {single}
+              memberToEdit = {memberToEdit}
+              
               setSingle = {setSingle}
+              setMemberToEdit = {setMemberToEdit}
+              setUser = {setUser}
+              handleChange = { handleChange }
+              handleSubmit = { handleSubmit }
             />
           )
         }}
