@@ -11,7 +11,7 @@ function Form(props) {
             value = {props.user.name}
             placeholder= 'Name' 
             onChange ={props.handleChange}
-            required
+            // required
         />
         <input 
             type="email"
@@ -20,7 +20,7 @@ function Form(props) {
             value = {props.user.email}
             placeholder= 'Email' 
             onChange ={props.handleChange}
-            required
+            // required
         />
         <input 
             type="text"
@@ -28,7 +28,7 @@ function Form(props) {
             value = {props.user.role}
             placeholder= 'Role' 
             onChange ={props.handleChange}
-            required
+            // required
         />
 		 <input type="submit"/>		
       </form>

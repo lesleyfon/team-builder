@@ -1,18 +1,35 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {Route} from 'react-router-dom'
 import styled from 'styled-components';
+import axios from 'axios';
 
 import './App.css';
 import Header from './components/Header';
 import Form from './components/Form';
 import AllTeam from './components/AllTeam';
+import SingleMember from './components/SingleMember';
 
 function App() {
   const [user, setUser] = useState({email: "", name: "", role: ""})
-  const [member, setMember] = useState([])
+  const [member, setMember] = useState([]);
+  const [single, setSingle] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://localhost:5000/api/team')
+      .then(res=>{
+        console.log(res)
+        setMember(res.data)
+      })
+      .catch(err=>{
+        console.log("Axios Error: ", err)
+      })
+  }, [])
+
+
+
+
 	function handleChange(e){
     e.preventDefault()
-    console.log(e.target)
-
     setUser({...user, [e.target.name] : e.target.value  })
   }
 
@@ -27,16 +44,39 @@ function App() {
     <div className="App">
       <Header />
       <h1>Welcome to TeamBuilder</h1>
-      <WrapperDiv>
-        <Form
-          handleChange = { handleChange }
-          handleSubmit = { handleSubmit }
-          user = {user}
+      <Route 
+          path ='/'
+          exact
+          render = {(props)=>{
+            return(
+              <WrapperDiv>
+                <Form
+                  handleChange = { handleChange }
+                  handleSubmit = { handleSubmit }
+                  user = {user}
+                />
+                <AllTeam 
+                  {...props}          
+                  member = {member}
+                  setSingle = {setSingle}
+                />
+              </WrapperDiv>
+            )
+          }}
         />
-        <AllTeam 
-          member = {member}
-        />
-      </WrapperDiv>
+
+      <Route 
+        path='/team/:id'
+        exact
+        render = { (props) => {
+          return(
+            <SingleMember 
+              {...props}
+              single = {single}
+            />
+          )
+        }}
+      />
     </div>
   );
 }
