@@ -10,14 +10,13 @@ import AllTeam from './components/AllTeam';
 import SingleMember from './components/SingleMember';
 
 function App() {
-  const [user, setUser] = useState({email: "", name: "", role: ""})
+  const [user, setUser] = useState({id:'' ,email: "", name: "", role: ""})
   const [member, setMember] = useState([]);
   const [single, setSingle] = useState([]);
 
   useEffect(()=>{
     axios.get('http://localhost:5000/api/team')
       .then(res=>{
-        console.log(res)
         setMember(res.data)
       })
       .catch(err=>{
@@ -26,16 +25,21 @@ function App() {
   }, [])
 
 
-
-
 	function handleChange(e){
     e.preventDefault()
-    setUser({...user, [e.target.name] : e.target.value  })
+    setUser({ ...user, [e.target.name] : e.target.value, id : member.length})
   }
 
 	function handleSubmit(e){
     e.preventDefault();
     setMember([user, ...member]);
+    axios.post('http://localhost:5000/api/team',{ id:member.length , ...user})
+      .then(res=>{
+            console.log(res)
+      })
+      .catch(err=>{
+        console.log('Axios Err: ', err)
+      })
     //resetForm() look into it 
     //type = 'reset'
     setUser({email: "", name: "", role: ""})
@@ -73,6 +77,7 @@ function App() {
             <SingleMember 
               {...props}
               single = {single}
+              setSingle = {setSingle}
             />
           )
         }}

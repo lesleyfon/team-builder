@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Member from './Member';
 
 const AllTeam = (props) =>{
+    
     return(
         <StyledAllEmployee>
             <Member 

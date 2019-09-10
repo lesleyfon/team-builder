@@ -1,11 +1,19 @@
 import React, {useEffect} from 'react'
-import { Link, Route } from 'react-router-dom'
+import axios from 'axios'
 import styled from 'styled-components'
 
 const SingleMember = (props) =>{
-    useEffect(()=>{
 
-    },[props.single.id])
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/api/team/${props.match.params.id}`)
+      .then(res=>{
+          props.setSingle(res.data)
+      })
+      .catch(err=>{
+        console.log("Axios Error: ", err)
+      })
+
+    },[props.match.params.id])
     console.log(props)
     return(
         <SingleMemberStyles>

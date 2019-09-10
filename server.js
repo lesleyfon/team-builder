@@ -58,12 +58,12 @@ app.get('/api/team/:id', (req, res) => {
 });
 
 app.post('/api/team', (req, res) => {
-	console.log('hello')
-	if (req.body.id !== undefined) team.push(req.body);
+    if (req.body.id !== undefined) team.push(req.body);
+    console.log(req.body)
 	res.status(201).json(team);
 });
 
 app.listen(5000, () => {
-	console.log('Server listening on port 5000');
+    console.log('Server listening on port 5000');
 });
 

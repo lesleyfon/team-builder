@@ -16,7 +16,7 @@ function Form(props) {
         <input 
             type="email"
             name = 'email'
-            data-lesley = {props.user.email}
+            data_id = 'name'
             value = {props.user.email}
             placeholder= 'Email' 
             onChange ={props.handleChange}
